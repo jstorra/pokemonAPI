@@ -1,12 +1,18 @@
 // const myPikachu = document.querySelector("#myPikachu");
 
 
-
 addEventListener('DOMContentLoaded', async (e)=> {
-    let res = await ( await fetch("https://pokeapi.co/api/v2/pokemon")).json();
+    // let res = await ( await fetch("https://pokeapi.co/api/v2/pokemon")).json();
+    let res = await ( await fetch("./data.json")).json();
     let btns = res.results.map((btn) => `<button id="my${btn.name}">${btn.name}</button>`).join("");
     document.body.innerHTML = btns
-
+    const botones = document.querySelectorAll('button')
+    botones.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            
+        })
+        console.log(btn);
+    })
 })
 
 
