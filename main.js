@@ -4,7 +4,7 @@
 // let maxSpecialAttack;
 // let maxSpecialDefense;
 // let maxSpeed;
-
+const main = document.querySelector('main')
 addEventListener("DOMContentLoaded", async () => {
   const buttons = await loadDom();
   let pokemonData = await getPokeStats(buttons);
@@ -14,13 +14,13 @@ addEventListener("DOMContentLoaded", async () => {
 const loadDom = async () => {
   // let res = await (await fetch("./data.json")).json();
   let res = await (
-    await fetch("https://pokeapi.co/api/v2/pokemon/?limit=5")
+    await fetch("https://pokeapi.co/api/v2/pokemon/?limit=14")
   ).json();
   let btns = res.results
-    .map((date) => `<button id="${date.name}">${date.name}</button>`)
+    .map((date) => `<div id="${date.name}" class="btn-pokemon">${date.name}</div>`)
     .join("");
-  document.body.innerHTML = btns;
-  return document.querySelectorAll("button");
+  main.innerHTML = btns;
+  return document.querySelectorAll("div");
 };
 
 const buttonsEvent = async (btns, pokemonData) => {
@@ -47,14 +47,12 @@ const getData = async (btn, pokemonData) => {
     html: `
             ${res.stats
               .map((data) => {
-                console.log(data);
                 let max;
                 for (stat in pokemonData) {
                   if (stat === data.stat.name) {
                     max = pokemonData[stat];
                   }
                 }
-                console.log(max);
                 return `<input type="range" value="${data.base_stat}" max="${
                   max ? max : 100
                 }" disabled ><label><b>${data.base_stat}</b> ${
