@@ -5,23 +5,18 @@
 // let maxSpecialDefense;
 // let maxSpeed;
 
-
 addEventListener("DOMContentLoaded", async () => {
-  let maxStats = {}
   const buttons = await loadDom();
   buttonsEvent(buttons);
-  let stats = await getPokeStats(buttons);
-  Object.keys(stats).forEach(el => {
-    Object.keys(stats[el]).forEach(data => {
-      console.log(data);
-    })
-  })
+  let pokemonData = await getPokeStats(buttons);
+  
+  console.log(getMaxStats(pokemonData));
 });
 
 const loadDom = async () => {
   // let res = await (await fetch("./data.json")).json();
   let res = await (
-    await fetch("https://pokeapi.co/api/v2/pokemon/?limit=10")
+    await fetch("https://pokeapi.co/api/v2/pokemon/?limit=2")
   ).json();
   let btns = res.results
     .map((date) => `<button id="${date.name}">${date.name}</button>`)
@@ -78,4 +73,16 @@ const getPokeStats = async (btns) => {
   });
   await Promise.all(promises);
   return pokeStats;
+};
+
+const getMaxStats = (pokemonData) => {
+  let maxStats = {};
+  for (const pokemon in pokemonData) {
+    for (const stat in pokemonData[pokemon]) {
+      if (!(stat in maxStats) || pokemonData[pokemon][stat] > maxStats[stat]) {
+        maxStats[stat] = pokemonData[pokemon][stat];
+      }
+    }
+  }
+  return maxStats;
 };
