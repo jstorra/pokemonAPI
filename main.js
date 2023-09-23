@@ -2,13 +2,14 @@ const main = document.querySelector("main");
 
 addEventListener("DOMContentLoaded", async () => {
   const buttons = await loadDom();
-  let pokemonData = await getPokeStats(buttons);
-  buttonsEvent(buttons, getMaxStats(pokemonData));
+  const pokemonData = await getPokeStats(buttons);
+  const pokemonMaxStats = getMaxStats(pokemonData);
+  buttonsEvent(buttons, pokemonMaxStats);
 });
 
 const loadDom = async () => {
   let res = await (
-    await fetch("https://pokeapi.co/api/v2/pokemon/?limit=50")
+    await fetch("https://pokeapi.co/api/v2/pokemon/?limit=10")
   ).json();
   let btns = await Promise.all(
     res.results.map(async (date) => {
@@ -33,16 +34,17 @@ const loadDom = async () => {
   return document.querySelectorAll(".btnPokemon");
 };
 
-const buttonsEvent = async (btns, pokemonData) => {
+const buttonsEvent = async (btns, pokemonMaxStats) => {
   btns.forEach(async (btn) => {
     btn.addEventListener("click", () => {
       playCardSound();
-      getData(btn, pokemonData);
+      getData(btn, pokemonMaxStats);
     });
   });
 };
 
-const getData = async (btn, pokemonData) => {
+const getData = async (btn, pokemonMaxStats) => {
+  console.log(pokemonMaxStats);
   let namePokemon = btn.id;
   let res = await (
     await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
@@ -59,9 +61,9 @@ const getData = async (btn, pokemonData) => {
             ${res.stats
               .map((data) => {
                 let max;
-                for (stat in pokemonData) {
+                for (stat in pokemonMaxStats) {
                   if (stat === data.stat.name) {
-                    max = pokemonData[stat];
+                    max = pokemonMaxStats[stat]["value"];
                   }
                 }
                 return `<input type="range" value="${data.base_stat}" max="${
@@ -97,8 +99,14 @@ const getMaxStats = (pokemonData) => {
   let maxStats = {};
   for (const pokemon in pokemonData) {
     for (const stat in pokemonData[pokemon]) {
-      if (!(stat in maxStats) || pokemonData[pokemon][stat] > maxStats[stat]) {
-        maxStats[stat] = pokemonData[pokemon][stat];
+      if (
+        !(stat in maxStats) ||
+        pokemonData[pokemon][stat] > maxStats[stat]["value"]
+      ) {
+        maxStats[stat] = {
+          value: pokemonData[pokemon][stat],
+          name: pokemon,
+        };
       }
     }
   }
