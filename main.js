@@ -1,15 +1,21 @@
-let maxHp;
-let maxAttack;
-let maxDefense;
-let maxSpecialAttack;
-let maxSpecialDefense;
-let maxSpeed;
+// let maxHp;
+// let maxAttack;
+// let maxDefense;
+// let maxSpecialAttack;
+// let maxSpecialDefense;
+// let maxSpeed;
+
 
 addEventListener("DOMContentLoaded", async () => {
+  let maxStats = {}
   const buttons = await loadDom();
   buttonsEvent(buttons);
   let stats = await getPokeStats(buttons);
-  console.log(stats);
+  Object.keys(stats).forEach(el => {
+    Object.keys(stats[el]).forEach(data => {
+      console.log(data);
+    })
+  })
 });
 
 const loadDom = async () => {
@@ -17,7 +23,6 @@ const loadDom = async () => {
   let res = await (
     await fetch("https://pokeapi.co/api/v2/pokemon/?limit=10")
   ).json();
-  console.log(res);
   let btns = res.results
     .map((date) => `<button id="${date.name}">${date.name}</button>`)
     .join("");
