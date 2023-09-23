@@ -5,9 +5,31 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bgColor: rgb(20, 18, 18);
+  --bgCardColor: rgb(26, 23, 23);
+}
+
 html {
   font-size: 10px;
   scroll-behavior: smooth;
+}
+html::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 8px;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: #ffffffaf;
+  border-radius: 10px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.836);
+}
+
+html::-webkit-scrollbar-track-piece {
+  background: rgb(59, 59, 59);
 }
 
 body {
@@ -33,7 +55,7 @@ body {
   left: 0;
   height: 100%;
   width: 100%;
-  background-image: linear-gradient(transparent, rgb(20, 18, 18));
+  background-image: linear-gradient(transparent, var(--bgColor));
 }
 
 .logo {
@@ -46,7 +68,7 @@ body {
 
 /* STYLES MAIN */
 main {
-  background-color: rgb(20, 18, 18);
+  background-color: var(--bgColor);
   width: 100%;
   padding: 10px;
   display: grid;
@@ -119,7 +141,7 @@ main {
 }
 
 .containerName {
-  background-color: rgb(20, 18, 18);
+  background-color: var(--bgCardColor);
   height: 30%;
   text-transform: uppercase;
   display: flex;
