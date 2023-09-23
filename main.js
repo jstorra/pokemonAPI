@@ -1,4 +1,5 @@
 const main = document.querySelector("main");
+
 addEventListener("DOMContentLoaded", async () => {
   const buttons = await loadDom();
   let pokemonData = await getPokeStats(buttons);
@@ -8,7 +9,7 @@ addEventListener("DOMContentLoaded", async () => {
 const loadDom = async () => {
   // let res = await (await fetch("./data.json")).json();
   let res = await (
-    await fetch("https://pokeapi.co/api/v2/pokemon/?limit=14")
+    await fetch("https://pokeapi.co/api/v2/pokemon/?limit=8")
   ).json();
   let btns = await Promise.all(
     res.results.map(async (date) => {
@@ -36,6 +37,7 @@ const loadDom = async () => {
 const buttonsEvent = async (btns, pokemonData) => {
   btns.forEach(async (btn) => {
     btn.addEventListener("click", () => {
+      playCardSound();
       getData(btn, pokemonData);
     });
   });
@@ -102,4 +104,9 @@ const getMaxStats = (pokemonData) => {
     }
   }
   return maxStats;
+};
+
+const playCardSound = () => {
+  const audioElement = new Audio("assets/audio/card.mp3");
+  audioElement.play();
 };
