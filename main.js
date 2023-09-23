@@ -7,9 +7,8 @@ addEventListener("DOMContentLoaded", async () => {
 });
 
 const loadDom = async () => {
-  // let res = await (await fetch("./data.json")).json();
   let res = await (
-    await fetch("https://pokeapi.co/api/v2/pokemon/?limit=8")
+    await fetch("https://pokeapi.co/api/v2/pokemon/?limit=50")
   ).json();
   let btns = await Promise.all(
     res.results.map(async (date) => {
