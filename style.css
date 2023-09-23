@@ -4,40 +4,82 @@
   box-sizing: border-box;
 }
 
-body {
-  background-image: url(./img/background-img2.jpg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-attachment: fixed;
+html {
+  font-size: 10px;
+  scroll-behavior: smooth;
 }
 
-body::after {
+body {
+  font-family: 'Poppins', sans-serif;
+  
+}
+
+.banner {
+  position: relative;
+  background-image: url(./img/img-background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom -50px right 0;
+  height: 65vh;
+}
+
+.banner::after {
   content: "";
-  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.678);
-  z-index: -1;
 }
 
 main {
+  background-color: rgb(20, 18, 18);
   width: 100%;
   padding: 10px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  z-index: 99;
 }
 
 .btnPokemon {
-  height: 400px;
+  height: 300px;
   margin: 10px;
-  padding: 5px;
   border-radius: 10px;
-  border: none;
+  border: 4px solid rgb(0, 255, 42);
   cursor: pointer;
+  background-color: red;
+  overflow: hidden;
+}
+
+.imgPokemon {
+  display: flex;
+  background-color: white;
+  height: 70%;
+}
+
+.imgPokemon img {
+  width: 100%;
+  height: 100%;
+}
+
+.containerName {
   background-color: #2b2b2b;
+  height: 30%;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.namePokemon {
+  font-size: 2.3rem;
+  font-weight: 600;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 0;
+  height: 0;
 }
 
 

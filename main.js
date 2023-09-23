@@ -29,7 +29,7 @@ const loadDom = async () => {
   );
   let btnsHTML = btns.join("");
   main.innerHTML = btnsHTML;
-  return document.querySelectorAll("div.btn-pokemon");
+  return document.querySelectorAll(".btnPokemon");
 };
 
 const buttonsEvent = async (btns, pokemonData) => {
