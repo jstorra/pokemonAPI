@@ -76,6 +76,12 @@ const getData = async (btn, pokemonMaxStats) => {
             `,
     imageWidth: "300",
     imageHeight: "300",
+    backdrop: `
+    rgba(0,0,123,0.4)
+    url("/images/nyan-cat.gif")
+    left top
+    no-repeat
+  `
   });
 };
 

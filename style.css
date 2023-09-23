@@ -35,6 +35,7 @@ html::-webkit-scrollbar-track-piece {
 body {
   font-family: "Poppins", sans-serif;
   min-width: 320px;
+  padding-right: 0 !important;
 }
 
 /* STYLES BANNER */
@@ -154,10 +155,4 @@ main {
   font-size: 2.3rem;
   font-weight: 600;
   color: #4a86ff;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  appearance: none;
-  width: 0;
-  height: 0;
 }
