@@ -1,10 +1,4 @@
-// let maxHp;
-// let maxAttack;
-// let maxDefense;
-// let maxSpecialAttack;
-// let maxSpecialDefense;
-// let maxSpeed;
-const main = document.querySelector('main')
+const main = document.querySelector("main");
 addEventListener("DOMContentLoaded", async () => {
   const buttons = await loadDom();
   let pokemonData = await getPokeStats(buttons);
@@ -16,11 +10,26 @@ const loadDom = async () => {
   let res = await (
     await fetch("https://pokeapi.co/api/v2/pokemon/?limit=14")
   ).json();
-  let btns = res.results
-    .map((date) => `<div id="${date.name}" class="btn-pokemon">${date.name}</div>`)
-    .join("");
-  main.innerHTML = btns;
-  return document.querySelectorAll("div");
+  let btns = await Promise.all(
+    res.results.map(async (date) => {
+      let namePokemon = date.name;
+      let res1 = await (
+        await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
+      ).json();
+      let img = res1.sprites.front_default;
+      return `<div id="${date.name}" class="btnPokemon">
+                  <div class="imgPokemon">
+                      <img src="${img}">
+                  </div>
+                  <div class="containerName">
+                      <span class="namePokemon">${date.name}</span>
+                  </div>
+              </div>`;
+    })
+  );
+  let btnsHTML = btns.join("");
+  main.innerHTML = btnsHTML;
+  return document.querySelectorAll("div.btn-pokemon");
 };
 
 const buttonsEvent = async (btns, pokemonData) => {
