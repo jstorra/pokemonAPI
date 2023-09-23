@@ -7,16 +7,14 @@
 
 addEventListener("DOMContentLoaded", async () => {
   const buttons = await loadDom();
-  buttonsEvent(buttons);
   let pokemonData = await getPokeStats(buttons);
-  
-  console.log(getMaxStats(pokemonData));
+  buttonsEvent(buttons, getMaxStats(pokemonData));
 });
 
 const loadDom = async () => {
   // let res = await (await fetch("./data.json")).json();
   let res = await (
-    await fetch("https://pokeapi.co/api/v2/pokemon/?limit=2")
+    await fetch("https://pokeapi.co/api/v2/pokemon/?limit=5")
   ).json();
   let btns = res.results
     .map((date) => `<button id="${date.name}">${date.name}</button>`)
@@ -25,15 +23,15 @@ const loadDom = async () => {
   return document.querySelectorAll("button");
 };
 
-const buttonsEvent = async (btns) => {
+const buttonsEvent = async (btns, pokemonData) => {
   btns.forEach(async (btn) => {
     btn.addEventListener("click", () => {
-      getData(btn);
+      getData(btn, pokemonData);
     });
   });
 };
 
-const getData = async (btn) => {
+const getData = async (btn, pokemonData) => {
   let namePokemon = btn.id;
   let res = await (
     await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
@@ -48,14 +46,25 @@ const getData = async (btn) => {
     imageUrl: `${img ? img : defaultImg}`,
     html: `
             ${res.stats
-              .map(
-                (data) =>
-                  `<input type="range" value="${data.base_stat}" max="300"><label><b>${data.base_stat}</b> ${data.stat.name} </label><br>`
-              )
+              .map((data) => {
+                console.log(data);
+                let max;
+                for (stat in pokemonData) {
+                  if (stat === data.stat.name) {
+                    max = pokemonData[stat];
+                  }
+                }
+                console.log(max);
+                return `<input type="range" value="${data.base_stat}" max="${
+                  max ? max : 100
+                }" disabled ><label><b>${data.base_stat}</b> ${
+                  data.stat.name
+                } </label><br>`;
+              })
               .join("")}
             `,
-    imageWidth: "80%",
-    imageHeight: "80%",
+    imageWidth: "300",
+    imageHeight: "300",
   });
 };
 
