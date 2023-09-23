@@ -17,18 +17,19 @@ const loadDom = async () => {
         await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
       ).json();
       let img = res1.sprites.front_default;
-      return `<div id="${date.name}" class="btnPokemon">
-                  <div class="imgPokemon">
-                      <img src="${img}">
-                  </div>
-                  <div class="containerName">
-                      <span class="namePokemon">${date.name}</span>
+      return `<div class="containerCard">
+                  <div id="${date.name}" class="btnPokemon">
+                      <div class="imgPokemon">
+                          <img src="${img}">
+                      </div>
+                      <div class="containerName">
+                          <span class="namePokemon">${date.name}</span>
+                      </div>
                   </div>
               </div>`;
     })
   );
-  let btnsHTML = btns.join("");
-  main.innerHTML = btnsHTML;
+  main.innerHTML = btns.join("");
   return document.querySelectorAll(".btnPokemon");
 };
 
