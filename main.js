@@ -1,5 +1,3 @@
-// const myPikachu = document.querySelector("#myPikachu");
-let pokeStats = {};
 let maxHp;
 let maxAttack;
 let maxDefense;
@@ -10,26 +8,28 @@ let maxSpeed;
 addEventListener("DOMContentLoaded", async () => {
   const buttons = await loadDom();
   buttonsEvent(buttons);
+  let stats = await getPokeStats(buttons);
+  console.log(stats);
 });
 
 const loadDom = async () => {
-  //   let res = await (await fetch("./data.json")).json();
+  // let res = await (await fetch("./data.json")).json();
   let res = await (
-    await fetch("https://pokeapi.co/api/v2/pokemon/?offset=100&limit=5")
+    await fetch("https://pokeapi.co/api/v2/pokemon/?limit=10")
   ).json();
+  console.log(res);
   let btns = res.results
-    .map((btn) => `<button id="${btn.name}">${btn.name}</button>`)
+    .map((date) => `<button id="${date.name}">${date.name}</button>`)
     .join("");
   document.body.innerHTML = btns;
   return document.querySelectorAll("button");
 };
 
 const buttonsEvent = async (btns) => {
-  btns.forEach((btn) => {
+  btns.forEach(async (btn) => {
     btn.addEventListener("click", () => {
       getData(btn);
     });
-    getPokeStats(btn.id);
   });
 };
 
@@ -59,32 +59,18 @@ const getData = async (btn) => {
   });
 };
 
-const getPokeStats = async (namePokemon) => {
-  let res = await (
-    await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
-  ).json();
-
-//   let statistics = res.stats
-//     .map((data) => `${data.stat.name}: ${data.base_stat}`)
-//     .join(",");
-//   pokeStats[namePokemon] = statistics;
-    
-
+const getPokeStats = async (btns) => {
+  let pokeStats = {};
+  const promises = [...btns].map(async (btn) => {
+    const namePokemon = btn.id;
+    const res = await (
+      await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
+    ).json();
+    pokeStats[namePokemon] = {};
+    res.stats.forEach((data) => {
+      pokeStats[namePokemon][data.stat.name] = data.base_stat;
+    });
+  });
+  await Promise.all(promises);
+  return pokeStats;
 };
-
-// console.log(pokeStats);
-
-// let a = {
-//   cubone:
-//     "hp: 50,attack: 50,defense: 95,special-attack: 40,special-defense: 50,speed: 35",
-//   electrode:
-//     "hp: 60,attack: 50,defense: 70,special-attack: 80,special-defense: 80,speed: 150",
-//   exeggcute:
-//     "hp: 60,attack: 40,defense: 80,special-attack: 60,special-defense: 45,speed: 40",
-//   exeggutor:
-//     "hp: 95,attack: 95,defense: 85,special-attack: 125,special-defense: 75,speed: 55",
-//   marowak:
-//     "hp: 60,attack: 80,defense: 110,special-attack: 50,special-defense: 80,speed: 45",
-// };
-
-// console.log(a);
