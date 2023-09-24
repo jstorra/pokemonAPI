@@ -65,9 +65,9 @@ const getData = async (btn, pokemonMaxStats) => {
                     max = pokemonMaxStats[stat]["value"];
                   }
                 }
-                return `<label><input type="range" value="${
+                return `<label class="stat"><input type="range" value="${
                   data.base_stat
-                }" max="${max ? max : 100}" disabled><b>${data.base_stat}</b> ${
+                }" max="${max ? max : 100}" disabled><b>${data.base_stat}</b>${
                   data.stat.name
                 }</label>`;
               })

@@ -44,6 +44,7 @@ html {
   font-size: 10px;
   scroll-behavior: smooth;
 }
+
 html::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 8px;
@@ -170,8 +171,8 @@ main {
   background-image: var(--bgRainbow);
   padding: 10px;
   max-width: 320px;
-  width: 70%;
-  /* max-height: 575px; */
+  width: 80%;
+  max-height: 575px;
 }
 
 .swal2-image {
@@ -187,16 +188,31 @@ main {
   font-size: 3.5rem;
   text-transform: uppercase;
   padding: 10px;
-  border-bottom: 2px solid #4c9d22;
-  border-top: 2px solid #bc68dc;
+  border-top: 2px solid #619a0d;
+  border-bottom: 2px solid #bc68dc;
   max-height: 77px;
 }
 
 #swal2-html-container {
-  /* FALTA MAX-HEIGHT */
   padding: 10px;
   margin: 0;
   background-color: var(--bgCardColor);
+  max-height: 140px;
+  overflow: hidden;
+}
+
+label.stat {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  text-transform: uppercase;
+  width: 100%;
+  color: #ffffffaf;
+  font-size: 1.3rem;
+}
+
+label.stat b {
+  color: #e66136;
 }
 
 .swal2-actions {
@@ -213,4 +229,53 @@ main {
   background: #f25353;
   color: var(--bgColor);
   font-weight: 600;
+}
+
+@media only screen and (width <= 491px) {
+  #swal2-title {
+    font-size: 3rem;
+  }
+
+  input[type="range"] {
+    width: 100px;
+  }
+}
+
+@media only screen and (width <= 397px) {
+  #swal2-title {
+    font-size: 2.5rem;
+  }
+
+  #swal2-html-container {
+    overflow-y: scroll;
+  }
+
+  #swal2-html-container::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 4px;
+  }
+
+  #swal2-html-container::-webkit-scrollbar-thumb {
+    background-color: #ffffffaf;
+    border-radius: 10px;
+  }
+
+  #swal2-html-container::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.836);
+  }
+
+  #swal2-html-container::-webkit-scrollbar-track-piece {
+    background: rgb(59, 59, 59);
+  }
+
+  input[type="range"] {
+    height: 10px;
+    width: 100%;
+  }
+}
+
+@media only screen and (width <= 350px) {
+  #swal2-title {
+    font-size: 2rem;
+  }
 }
