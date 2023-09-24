@@ -8,6 +8,36 @@
 :root {
   --bgColor: rgb(20, 18, 18);
   --bgCardColor: rgb(26, 23, 23);
+  --bgCardContainer: linear-gradient(
+    180deg,
+    #4a86ff 0,
+    #737ffa 3.85%,
+    #9178f2 7.69%,
+    #a870e8 11.54%,
+    #bc68dc 15.38%,
+    #cc60cf 19.23%,
+    #da58c1 23.08%,
+    #e551b1 26.92%,
+    #ed4ca2 30.77%,
+    #f24892 34.62%,
+    #f64882 38.46%,
+    #f64972 42.31%,
+    #f54d62 46.15%,
+    #f25353 50%,
+    #ed5a44 53.85%,
+    #e66136 57.69%,
+    #de6927 61.54%,
+    #d47016 65.38%,
+    #c97700 69.23%,
+    #bd7e00 73.08%,
+    #b18400 76.92%,
+    #a38900 80.77%,
+    #948e00 84.62%,
+    #859300 88.46%,
+    #749700 92.31%,
+    #619a0d 96.15%,
+    #4c9d22 100%
+  );
 }
 
 html {
@@ -83,41 +113,12 @@ main {
   margin: 10px;
   border-radius: 10px;
   cursor: pointer;
-  background-image: linear-gradient(
-    180deg,
-    #4a86ff 0,
-    #737ffa 3.85%,
-    #9178f2 7.69%,
-    #a870e8 11.54%,
-    #bc68dc 15.38%,
-    #cc60cf 19.23%,
-    #da58c1 23.08%,
-    #e551b1 26.92%,
-    #ed4ca2 30.77%,
-    #f24892 34.62%,
-    #f64882 38.46%,
-    #f64972 42.31%,
-    #f54d62 46.15%,
-    #f25353 50%,
-    #ed5a44 53.85%,
-    #e66136 57.69%,
-    #de6927 61.54%,
-    #d47016 65.38%,
-    #c97700 69.23%,
-    #bd7e00 73.08%,
-    #b18400 76.92%,
-    #a38900 80.77%,
-    #948e00 84.62%,
-    #859300 88.46%,
-    #749700 92.31%,
-    #619a0d 96.15%,
-    #4c9d22 100%
-  );
-  transition: transform 0.3s ease-in;
+  background-image: var(--bgCardContainer);
+  transition: transform 0.2s ease-out;
 }
 
 .containerCard:hover {
-  transform: translateY(-5px);
+  transform: translateY(-2px);
 }
 
 .btnPokemon {
@@ -158,3 +159,39 @@ main {
 }
 
 /* STYLES DIALOGS */
+
+.swal2-container {
+  padding: 0 20px;
+  min-width: 302px;
+}
+
+.swal2-modal {
+  border-radius: 10px;
+  background-image: var(--bgCardContainer);
+  padding: 10px;
+  max-height: 575px;
+}
+
+.swal2-image {
+  margin: 0;
+  background-image: url(assets/img/card-bg.jpg);
+  border-radius: 7px 7px 0 0;
+}
+
+#swal2-title {
+  padding: 0;
+  background-color: var(--bgCardColor);
+  color: #4a86ff;
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  padding: 10px;
+  border-bottom: 2px solid #4c9d22;
+  border-top: 2px solid #bc68dc;
+  max-height: 77px;
+}
+
+#swal2-html-container { /* FALTA MAX-HEIGHT */
+  padding: 5px;
+  margin: 0;
+  background-color: var(--bgCardColor);
+}
