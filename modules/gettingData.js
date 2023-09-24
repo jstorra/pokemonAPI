@@ -12,8 +12,7 @@ export const getData = async (btn, pokemonMaxStats) => {
     await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
   ).json();
   const img = res.sprites.front_default;
-  const defaultImg =
-    "https://i.pinimg.com/originals/27/ae/5f/27ae5f34f585523fc884c2d479731e16.gif";
+  const defaultImg ="assets/img/pokeBall.gif";
 
   Swal.fire({
     title: `${res.name}`,
