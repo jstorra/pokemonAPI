@@ -2,7 +2,7 @@ import { loadActions, loadCards } from "./modules/loadFunctions.js";
 
 const main = document.querySelector("main");
 const btnMore = document.querySelector(".moreCards");
-const api = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=500";
+const api = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=9";
 
 addEventListener("DOMContentLoaded", async () => {
   let resNext = await loadCards(main, api);
