@@ -8,7 +8,7 @@
 :root {
   --bgColor: rgb(20, 18, 18);
   --bgCardColor: rgb(26, 23, 23);
-  --bgCardContainer: linear-gradient(
+  --bgRainbow: linear-gradient(
     180deg,
     #4a86ff 0,
     #737ffa 3.85%,
@@ -113,7 +113,7 @@ main {
   margin: 10px;
   border-radius: 10px;
   cursor: pointer;
-  background-image: var(--bgCardContainer);
+  background-image: var(--bgRainbow);
   transition: transform 0.2s ease-out;
 }
 
@@ -167,9 +167,11 @@ main {
 
 .swal2-modal {
   border-radius: 10px;
-  background-image: var(--bgCardContainer);
+  background-image: var(--bgRainbow);
   padding: 10px;
-  max-height: 575px;
+  max-width: 320px;
+  width: 70%;
+  /* max-height: 575px; */
 }
 
 .swal2-image {
@@ -190,8 +192,25 @@ main {
   max-height: 77px;
 }
 
-#swal2-html-container { /* FALTA MAX-HEIGHT */
-  padding: 5px;
+#swal2-html-container {
+  /* FALTA MAX-HEIGHT */
+  padding: 10px;
   margin: 0;
   background-color: var(--bgCardColor);
+}
+
+.swal2-actions {
+  width: 100%;
+  margin: 0;
+}
+
+.swal2-actions .swal2-confirm {
+  width: 100%;
+  margin: 0;
+  border-radius: 0 0 7px 7px;
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  background: #f25353;
+  color: var(--bgColor);
+  font-weight: 600;
 }
