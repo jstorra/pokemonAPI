@@ -67,6 +67,7 @@ body {
   font-family: "Poppins", sans-serif;
   min-width: 302px;
   padding-right: 0 !important;
+  background-color: var(--bgColor);
 }
 
 /* STYLES BANNER */
@@ -104,7 +105,7 @@ main {
   width: 100%;
   padding: 10px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
 }
 
 /* STYLES CARDS */
@@ -217,19 +218,29 @@ label.stat b {
 }
 
 .swal2-actions {
+  max-height: 38px;
   width: 100%;
   margin: 0;
 }
 
 .swal2-actions .swal2-confirm {
+  height: 100%;
   width: 100%;
   margin: 0;
   border-radius: 0 0 7px 7px;
-  font-size: 1.6rem;
-  letter-spacing: 1px;
-  background: #f25353;
-  color: var(--bgColor);
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  background: rgb(59, 59, 59);
+  color: #fff;
   font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  padding: 10px;
+}
+
+.swal2-actions .swal2-confirm:hover {
+  background-color: #fff;
+  color: rgb(59, 59, 59);
+  transition: 0.2s ease-out;
 }
 
 @media only screen and (width <= 491px) {
@@ -282,6 +293,26 @@ label.stat b {
 }
 
 .moreCards {
-  padding: 15px;
   width: 100%;
+  background-color: transparent;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.2)
+  );
+  border: none;
+  height: 48px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.moreCards:hover {
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0.5)
+  );
+  color: var(--bgColor);
+}
+
+i {
+  font-size: 40px;
 }

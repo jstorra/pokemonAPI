@@ -42,4 +42,5 @@ export const getData = async (btn, pokemonMaxStats) => {
   });
   const btnOk = document.querySelector(".swal2-styled");
   btnOk.style.boxShadow = "none";
+  btnOk.textContent = "CLOSE"
 };
