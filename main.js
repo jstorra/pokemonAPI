@@ -44,7 +44,6 @@ const buttonsEvent = async (btns, pokemonMaxStats) => {
 };
 
 const getData = async (btn, pokemonMaxStats) => {
-  console.log(pokemonMaxStats);
   let namePokemon = btn.id;
   let res = await (
     await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
@@ -66,11 +65,11 @@ const getData = async (btn, pokemonMaxStats) => {
                     max = pokemonMaxStats[stat]["value"];
                   }
                 }
-                return `<input type="range" value="${data.base_stat}" max="${
-                  max ? max : 100
-                }" disabled ><label><b>${data.base_stat}</b> ${
+                return `<label><input type="range" value="${
+                  data.base_stat
+                }" max="${max ? max : 100}" disabled><b>${data.base_stat}</b> ${
                   data.stat.name
-                } </label><br>`;
+                }</label>`;
               })
               .join("")}
             `,
