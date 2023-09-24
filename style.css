@@ -179,6 +179,7 @@ main {
   margin: 0;
   background-image: url(assets/img/card-bg.jpg);
   border-radius: 7px 7px 0 0;
+  object-fit: contain;
 }
 
 #swal2-title {
@@ -188,8 +189,8 @@ main {
   font-size: 3.5rem;
   text-transform: uppercase;
   padding: 10px;
-  border-top: 2px solid #619a0d;
-  border-bottom: 2px solid #bc68dc;
+  border-top: 4px solid #619a0d;
+  border-bottom: 4px solid #bc68dc;
   max-height: 77px;
 }
 
@@ -241,7 +242,7 @@ label.stat b {
   }
 }
 
-@media only screen and (width <= 397px) {
+@media only screen and (width <= 403px) {
   #swal2-title {
     font-size: 2.5rem;
   }
@@ -278,4 +279,9 @@ label.stat b {
   #swal2-title {
     font-size: 2rem;
   }
+}
+
+.moreCards {
+  padding: 15px;
+  width: 100%;
 }

@@ -1,23 +1,56 @@
 const main = document.querySelector("main");
+const btnMore = document.querySelector(".moreCards");
 
 addEventListener("DOMContentLoaded", async () => {
-  const buttons = await loadDom();
+  let resNext = await loadCards();
+  const buttons = document.querySelectorAll(".btnPokemon");
   const pokemonData = await getPokeStats(buttons);
   const pokemonMaxStats = getMaxStats(pokemonData);
   buttonsEvent(buttons, pokemonMaxStats);
+
+  btnMore.addEventListener("click", async () => {
+    const res = await (await fetch(resNext)).json();
+    const btns = await Promise.all(
+      res.results.map(async (date) => {
+        const namePokemon = date.name;
+        const res1 = await (
+          await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
+        ).json();
+        const img = res1.sprites.front_default;
+        return `<div class="containerCard">
+                    <div id="${date.name}" class="btnPokemon">
+                        <div class="imgPokemon">
+                            <img src="${img}">
+                        </div>
+                        <div class="containerName">
+                            <span class="namePokemon">${date.name}</span>
+                        </div>
+                    </div>
+                </div>`;
+      })
+    );
+    btns.forEach((el) => {
+      main.insertAdjacentHTML("beforeend", el);
+    });
+    const buttons = document.querySelectorAll(".btnPokemon");
+    const pokemonData = await getPokeStats(buttons);
+    const pokemonMaxStats = getMaxStats(pokemonData);
+    buttonsEvent(buttons, pokemonMaxStats);
+    resNext = res.next;
+  });
 });
 
-const loadDom = async () => {
-  let res = await (
-    await fetch("https://pokeapi.co/api/v2/pokemon/?limit=10")
+const loadCards = async () => {
+  const res = await (
+    await fetch("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=18")
   ).json();
-  let btns = await Promise.all(
+  const btns = await Promise.all(
     res.results.map(async (date) => {
-      let namePokemon = date.name;
-      let res1 = await (
+      const namePokemon = date.name;
+      const res1 = await (
         await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
       ).json();
-      let img = res1.sprites.front_default;
+      const img = res1.sprites.front_default;
       return `<div class="containerCard">
                   <div id="${date.name}" class="btnPokemon">
                       <div class="imgPokemon">
@@ -31,25 +64,24 @@ const loadDom = async () => {
     })
   );
   main.innerHTML = btns.join("");
-  return document.querySelectorAll(".btnPokemon");
+  return res.next;
 };
 
 const buttonsEvent = async (btns, pokemonMaxStats) => {
   btns.forEach(async (btn) => {
     btn.addEventListener("click", () => {
-      playCardSound();
       getData(btn, pokemonMaxStats);
     });
   });
 };
 
 const getData = async (btn, pokemonMaxStats) => {
-  let namePokemon = btn.id;
-  let res = await (
+  const namePokemon = btn.id;
+  const res = await (
     await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
   ).json();
-  let img = res.sprites.front_default;
-  let defaultImg =
+  const img = res.sprites.front_default;
+  const defaultImg =
     "https://i.pinimg.com/originals/27/ae/5f/27ae5f34f585523fc884c2d479731e16.gif";
 
   Swal.fire({
@@ -77,10 +109,12 @@ const getData = async (btn, pokemonMaxStats) => {
     imageHeight: "300",
     backdrop: `rgba(0,0,123,0.4)`,
   });
+  const btnOk = document.querySelector(".swal2-styled");
+  btnOk.style.boxShadow = "none";
 };
 
 const getPokeStats = async (btns) => {
-  let pokeStats = {};
+  const pokeStats = {};
   const promises = [...btns].map(async (btn) => {
     const namePokemon = btn.id;
     const res = await (
@@ -96,7 +130,7 @@ const getPokeStats = async (btns) => {
 };
 
 const getMaxStats = (pokemonData) => {
-  let maxStats = {};
+  const maxStats = {};
   for (const pokemon in pokemonData) {
     for (const stat in pokemonData[pokemon]) {
       if (
@@ -111,9 +145,4 @@ const getMaxStats = (pokemonData) => {
     }
   }
   return maxStats;
-};
-
-const playCardSound = () => {
-  const audioElement = new Audio("assets/audio/card.mp3");
-  audioElement.play();
 };
