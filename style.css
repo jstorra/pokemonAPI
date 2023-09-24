@@ -34,7 +34,7 @@ html::-webkit-scrollbar-track-piece {
 
 body {
   font-family: "Poppins", sans-serif;
-  min-width: 320px;
+  min-width: 302px;
   padding-right: 0 !important;
 }
 
@@ -156,3 +156,5 @@ main {
   font-weight: 600;
   color: #4a86ff;
 }
+
+/* STYLES DIALOGS */
