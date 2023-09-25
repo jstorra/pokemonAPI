@@ -2,7 +2,7 @@ import { loadActions, loadCards } from "./modules/loadFunctions.js";
 
 const main = document.querySelector("main");
 const btnMore = document.querySelector(".moreCards");
-const api = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=24";
+const api = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=16";
 
 addEventListener("DOMContentLoaded", async () => {
   let resNext = await loadCards(main, api);
@@ -29,10 +29,9 @@ addEventListener("DOMContentLoaded", async () => {
                   </div>`;
       })
     );
-    // btns.forEach((el) => {
-    //   main.insertAdjacentHTML("beforeend", el);
-    // });
-    main.innerHTML = btns.join("")
+    btns.forEach((el) => {
+      main.insertAdjacentHTML("beforeend", el);
+    });
     loadActions();
     !res.next ? (btnMore.style.display = "none") : (resNext = res.next);
   });

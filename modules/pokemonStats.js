@@ -15,7 +15,6 @@ export const getPokeStats = async (btns) => {
 };
 
 export const getMaxStats = (pokemonData) => {
-  console.log(pokemonData)
   const maxStats = {};
   for (const pokemon in pokemonData) {
     for (const stat in pokemonData[pokemon]) {
