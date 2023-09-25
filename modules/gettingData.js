@@ -29,7 +29,7 @@ export const getData = async (btn, pokemonMaxStats) => {
                   }
                   return `<label class="stat"><input type="range" value="${
                     data.base_stat
-                  }" max="${max ? max : 100}" disabled><b>${
+                  }" max="${max ? max : 100}"><b>${
                     data.base_stat
                   }</b>${data.stat.name}</label>`;
                 })
@@ -45,5 +45,5 @@ export const getData = async (btn, pokemonMaxStats) => {
   });
   const btnOk = document.querySelector(".swal2-styled");
   btnOk.style.boxShadow = "none";
-  btnOk.textContent = "CLOSE"
+  btnOk.textContent = "SAVE"
 };

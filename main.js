@@ -2,7 +2,15 @@ import { loadActions, loadCards } from "./modules/loadFunctions.js";
 
 const main = document.querySelector("main");
 const btnMore = document.querySelector(".moreCards");
+const form = document.querySelector("form");
 const api = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=16";
+
+document.addEventListener("input", (e) => {
+  if (e.target.matches("#swal2-html-container input")) {
+    let nextLabel = e.target.nextElementSibling;
+    nextLabel.textContent = `${e.target.value}`;
+  }
+});
 
 addEventListener("DOMContentLoaded", async () => {
   let resNext = await loadCards(main, api);
@@ -20,7 +28,9 @@ addEventListener("DOMContentLoaded", async () => {
         return `<div class="containerCard">
                       <div id="${date.name}" class="btnPokemon">
                           <div class="imgPokemon">
-                              <img src="${img ? img : defaultImg}" loading="lazy">
+                              <img src="${
+                                img ? img : defaultImg
+                              }" loading="lazy">
                           </div>
                           <div class="containerName">
                               <span class="namePokemon">${date.name}</span>

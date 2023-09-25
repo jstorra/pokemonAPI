@@ -29,7 +29,7 @@ export const loadCards = async (main, api) => {
                     </div>
                 </div>`;
     })
-  );
+    );
   main.innerHTML = btns.join("");
   return res.next;
 };
