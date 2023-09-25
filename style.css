@@ -293,8 +293,21 @@ label.stat b {
   }
 }
 
-.moreCards {
-  width: 100%;
+footer {
+  display: flex;
+}
+
+hr {
+  width: 3px;
+  background-color: #fff;
+  border: none;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
   background-color: transparent;
   background-image: linear-gradient(
     rgba(255, 255, 255, 0.6),
@@ -304,9 +317,10 @@ label.stat b {
   height: 48px;
   cursor: pointer;
   color: #fff;
+  text-decoration: none;
 }
 
-.moreCards:hover {
+.btn:hover {
   background-image: linear-gradient(
     rgba(255, 255, 255, 1),
     rgba(255, 255, 255, 0.5)

@@ -2,7 +2,7 @@ import { loadActions, loadCards } from "./modules/loadFunctions.js";
 
 const main = document.querySelector("main");
 const btnMore = document.querySelector(".moreCards");
-const api = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=16";
+const api = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20";
 
 document.addEventListener("input", (e) => {
   if (e.target.matches("#swal2-html-container input")) {
