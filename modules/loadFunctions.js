@@ -1,11 +1,8 @@
-import { getPokeStats, getMaxStats } from "./pokemonStats.js";
 import { buttonsEvent } from "./gettingData.js";
 
 export const loadActions = async () => {
   const buttons = document.querySelectorAll(".btnPokemon");
-  const pokemonData = await getPokeStats(buttons);
-  const pokemonMaxStats = getMaxStats(pokemonData);
-  buttonsEvent(buttons, pokemonMaxStats);
+  buttonsEvent(buttons);
 };
 
 export const loadCards = async (main, api) => {
@@ -29,7 +26,7 @@ export const loadCards = async (main, api) => {
                     </div>
                 </div>`;
     })
-    );
+  );
   main.innerHTML = btns.join("");
   return res.next;
 };

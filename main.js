@@ -2,12 +2,11 @@ import { loadActions, loadCards } from "./modules/loadFunctions.js";
 
 const main = document.querySelector("main");
 const btnMore = document.querySelector(".moreCards");
-const form = document.querySelector("form");
 const api = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=16";
 
 document.addEventListener("input", (e) => {
   if (e.target.matches("#swal2-html-container input")) {
-    let statValue = e.target.nextElementSibling;
+    const statValue = e.target.nextElementSibling;
     statValue.textContent = `${e.target.value}`;
   }
 });

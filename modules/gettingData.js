@@ -1,18 +1,18 @@
-export const buttonsEvent = async (btns, pokemonMaxStats) => {
+export const buttonsEvent = async (btns) => {
   btns.forEach(async (btn) => {
     btn.addEventListener("click", () => {
-      getData(btn, pokemonMaxStats);
+      getData(btn);
     });
   });
 };
 
-export const getData = async (btn, pokemonMaxStats) => {
+export const getData = async (btn) => {
   const namePokemon = btn.id;
   const res = await (
     await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
   ).json();
   const img = res.sprites.front_default;
-  const defaultImg ="assets/img/pokeBall.gif";
+  const defaultImg = "assets/img/pokeBall.gif";
 
   Swal.fire({
     title: `${res.name}`,
@@ -20,19 +20,14 @@ export const getData = async (btn, pokemonMaxStats) => {
     imageUrl: `${img ? img : defaultImg}`,
     html: `
               ${res.stats
-                .map((data) => {
-                  let max;
-                  for (let stat in pokemonMaxStats) {
-                    if (stat === data.stat.name) {
-                      max = pokemonMaxStats[stat]["value"];
-                    }
-                  }
-                  return `<label class="stat"><input type="range" value="${
-                    data.base_stat
-                  }" max="${max ? max : 100}"><b>${
-                    data.base_stat
-                  }</b>${data.stat.name}</label>`;
-                })
+                .map(
+                  (data) =>
+                    `<label class="stat"><input type="range" value="${
+                      data.base_stat
+                    }"><b>${data.base_stat <= 100 ? data.base_stat : 100}</b>${
+                      data.stat.name
+                    }</label>`
+                )
                 .join("")}
               `,
     imageWidth: "300",
@@ -45,5 +40,5 @@ export const getData = async (btn, pokemonMaxStats) => {
   });
   const btnOk = document.querySelector(".swal2-styled");
   btnOk.style.boxShadow = "none";
-  btnOk.textContent = "SAVE"
+  btnOk.textContent = "SAVE";
 };
