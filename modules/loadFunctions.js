@@ -21,7 +21,7 @@ export const loadCards = async (main, api) => {
       return `<div class="containerCard">
                     <div id="${date.name}" class="btnPokemon">
                         <div class="imgPokemon">
-                            <img src="${img ? img : defaultImg}">
+                            <img src="${img ? img : defaultImg}" loading="lazy">
                         </div>
                         <div class="containerName">
                             <span class="namePokemon">${date.name}</span>

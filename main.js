@@ -2,7 +2,7 @@ import { loadActions, loadCards } from "./modules/loadFunctions.js";
 
 const main = document.querySelector("main");
 const btnMore = document.querySelector(".moreCards");
-const api = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=9";
+const api = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=24";
 
 addEventListener("DOMContentLoaded", async () => {
   let resNext = await loadCards(main, api);
@@ -20,7 +20,7 @@ addEventListener("DOMContentLoaded", async () => {
         return `<div class="containerCard">
                       <div id="${date.name}" class="btnPokemon">
                           <div class="imgPokemon">
-                              <img src="${img ? img : defaultImg}">
+                              <img src="${img ? img : defaultImg}" loading="lazy">
                           </div>
                           <div class="containerName">
                               <span class="namePokemon">${date.name}</span>
@@ -29,9 +29,10 @@ addEventListener("DOMContentLoaded", async () => {
                   </div>`;
       })
     );
-    btns.forEach((el) => {
-      main.insertAdjacentHTML("beforeend", el);
-    });
+    // btns.forEach((el) => {
+    //   main.insertAdjacentHTML("beforeend", el);
+    // });
+    main.innerHTML = btns.join("")
     loadActions();
     !res.next ? (btnMore.style.display = "none") : (resNext = res.next);
   });

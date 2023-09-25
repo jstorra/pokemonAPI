@@ -37,7 +37,11 @@ export const getData = async (btn, pokemonMaxStats) => {
               `,
     imageWidth: "300",
     imageHeight: "300",
-    backdrop: `rgba(0,0,123,0.4)`,
+    backdrop: `rgba(0,0,123,0.4)
+               url("assets/img/pikachu.gif")
+               center top
+    no-repeat
+              `,
   });
   const btnOk = document.querySelector(".swal2-styled");
   btnOk.style.boxShadow = "none";
