@@ -9,24 +9,28 @@ export const cardsEvent = async (cards) => {
 export const getData = async (card) => {
   const namePokemon = card.id;
   const defaultImg = "assets/img/pokeBall.gif";
-  var res, img;
-  try {
-    let res1 = await (
-      await fetch(`https://6509d044f6553137159c1062.mockapi.io/pokemons/`)
-    ).json();
-    res1.forEach(data => {
-      if (data.name === namePokemon){
-        res = data
-        console.log(data)
-        img = data["sprite-default"]
-      }
-    })
-  } catch (error) {
-    res = await (
-      await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
-    ).json();
-    img = res.sprites.front_default;
-  }
+  let res = await (
+    await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
+  ).json();
+  let img = res.sprites.front_default
+  // var res, img;
+  // try {
+  //   let res1 = await (
+  //     await fetch(`https://6509d044f6553137159c1062.mockapi.io/pokemons/`)
+  //   ).json();
+  //   res1.forEach(data => {
+  //     if (data.name === namePokemon){
+  //       res = data
+  //       console.log(data)
+  //       img = data["sprite-default"]
+  //     }
+  //   })
+  // } catch (error) {
+  //   res = await (
+  //     await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
+  //   ).json();
+  //   img = res.sprites.front_default;
+  // }
 
   Swal.fire({
     title: `${res.name}`,

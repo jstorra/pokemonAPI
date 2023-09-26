@@ -38,7 +38,7 @@ export const loadTypes = async (sectionTypes, main) => {
     .join("");
   sectionTypes.innerHTML = btns;
   const btnType = document.querySelectorAll(".btnType");
-  btnType.forEach((btn) => {
+  btnType.forEach(async(btn) => {
     btn.addEventListener("click", async () => {
       const res = await (
         await fetch(`https://pokeapi.co/api/v2/type/${btn.textContent}/`)
