@@ -123,7 +123,7 @@ main {
   transform: translateY(-2px);
 }
 
-.btnPokemon {
+.cardPokemon {
   position: absolute;
   inset: 4px;
   overflow: hidden;

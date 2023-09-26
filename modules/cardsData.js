@@ -1,13 +1,13 @@
-export const buttonsEvent = async (btns) => {
-  btns.forEach(async (btn) => {
-    btn.addEventListener("click", () => {
-      getData(btn);
+export const cardsEvent = async (cards) => {
+  cards.forEach(async (card) => {
+    card.addEventListener("click", () => {
+      getData(card);
     });
   });
 };
 
-export const getData = async (btn) => {
-  const namePokemon = btn.id;
+export const getData = async (card) => {
+  const namePokemon = card.id;
   const res = await (
     await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
   ).json();

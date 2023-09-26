@@ -1,22 +1,26 @@
-import { loadActions, loadCards } from "./modules/loadFunctions.js";
+import { loadActions, loadCards, loadTypes } from "./modules/loadFunctions.js";
 
+const sectionTypes = document.querySelector(".sectionTypes");
 const main = document.querySelector("main");
-const btnMore = document.querySelector(".moreCards");
-const api = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20";
-
-document.addEventListener("input", (e) => {
-  if (e.target.matches("#swal2-html-container input")) {
-    const statValue = e.target.nextElementSibling;
-    statValue.textContent = `${e.target.value}`;
-  }
-});
+const btnPrev = document.querySelector(".prevPage");
+const btnNext = document.querySelector(".nextPage");
+const hr = document.querySelector("hr");
+const footer = document.querySelector("footer");
+const api = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=8";
 
 addEventListener("DOMContentLoaded", async () => {
+  loadTypes(sectionTypes, main);
   let resNext = await loadCards(main, api);
   loadActions();
-  btnMore.addEventListener("click", async () => {
-    const res = await (await fetch(resNext)).json();
-    const btns = await Promise.all(
+  let resPrev;
+  let res;
+  footer.addEventListener("click", async (e) => {
+    if (e.target.matches(".nextPage")) {
+      res = await (await fetch(resNext)).json();
+    } else if (e.target.matches(".prevPage")) {
+      res = await (await fetch(resPrev)).json();
+    }
+    const cards = await Promise.all(
       res.results.map(async (date) => {
         const namePokemon = date.name;
         const res1 = await (
@@ -25,23 +29,44 @@ addEventListener("DOMContentLoaded", async () => {
         const img = res1.sprites.front_default;
         const defaultImg = "assets/img/pokeBall.gif";
         return `<div class="containerCard">
-                      <div id="${date.name}" class="btnPokemon">
+                      <div id="${namePokemon}" class="cardPokemon">
                           <div class="imgPokemon">
                               <img src="${
                                 img ? img : defaultImg
                               }" loading="lazy">
                           </div>
                           <div class="containerName">
-                              <span class="namePokemon">${date.name}</span>
+                              <span class="namePokemon">${namePokemon}</span>
                           </div>
                       </div>
                   </div>`;
       })
     );
-    btns.forEach((el) => {
-      main.insertAdjacentHTML("beforeend", el);
-    });
+    main.innerHTML = cards.join("");
     loadActions();
-    !res.next ? (btnMore.style.display = "none") : (resNext = res.next);
+    if (!res.previous) {
+      btnPrev.style.display = "none";
+      hr.style.display = "none";
+      btnNext.style.width = "100%";
+    } else {
+      btnNext.removeAttribute("style");
+      btnPrev.removeAttribute("style");
+      hr.removeAttribute("style");
+      resPrev = res.previous;
+    }
+    if (!res.next) {
+      btnNext.style.display = "none";
+      hr.style.display = "none";
+      btnPrev.style.width = "100%";
+    } else {
+      resNext = res.next;
+    }
   });
+});
+
+document.addEventListener("input", (e) => {
+  if (e.target.matches("#swal2-html-container input")) {
+    const statValue = e.target.nextElementSibling;
+    statValue.textContent = e.target.value;
+  }
 });
