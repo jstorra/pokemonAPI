@@ -55,9 +55,8 @@ export const loadTypes = async (sectionTypes, main) => {
           return `<div class="containerCard">
                         <div id="${namePokemon}" class="cardPokemon">
                             <div class="imgPokemon">
-                                <img src="${
-                                  img ? img : defaultImg
-                                }" loading="lazy">
+                                <img src="${img ? img : defaultImg
+            }" loading="lazy">
                             </div>
                             <div class="containerName">
                                 <span class="namePokemon">${namePokemon}</span>

@@ -8,11 +8,25 @@ export const cardsEvent = async (cards) => {
 
 export const getData = async (card) => {
   const namePokemon = card.id;
-  const res = await (
-    await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
-  ).json();
-  const img = res.sprites.front_default;
   const defaultImg = "assets/img/pokeBall.gif";
+  var res, img;
+  try {
+    let res1 = await (
+      await fetch(`https://6509d044f6553137159c1062.mockapi.io/pokemons/`)
+    ).json();
+    res1.forEach(data => {
+      if (data.name === namePokemon){
+        res = data
+        console.log(data)
+        img = data["sprite-default"]
+      }
+    })
+  } catch (error) {
+    res = await (
+      await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
+    ).json();
+    img = res.sprites.front_default;
+  }
 
   Swal.fire({
     title: `${res.name}`,
@@ -20,15 +34,13 @@ export const getData = async (card) => {
     imageUrl: `${img ? img : defaultImg}`,
     html: `
               ${res.stats
-                .map(
-                  (data) =>
-                    `<label class="stat"><input type="range" value="${
-                      data.base_stat
-                    }"><b>${data.base_stat <= 100 ? data.base_stat : 100}</b>${
-                      data.stat.name
-                    }</label>`
-                )
-                .join("")}
+        .map(
+          (data) =>
+            `<label class="stat"><input type="range" value="${data.base_stat
+            }"><b>${data.base_stat <= 100 ? data.base_stat : 100}</b>${data.stat.name
+            }</label>`
+        )
+        .join("")}
               `,
     imageWidth: "300",
     imageHeight: "300",
