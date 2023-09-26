@@ -235,6 +235,8 @@ label.stat b {
   color: #e66136;
 }
 
+/* STYLES BUTTONS DALOGS*/
+
 .swal2-actions {
   max-height: 38px;
   width: 100%;
@@ -243,9 +245,9 @@ label.stat b {
 
 .swal2-actions .swal2-confirm {
   height: 100%;
-  width: 100%;
+  width: 50%;
   margin: 0;
-  border-radius: 0 0 7px 7px;
+  border-radius: 0 0 0 7px;
   font-size: 1.4rem;
   letter-spacing: 2px;
   background: rgb(59, 59, 59);
@@ -257,7 +259,27 @@ label.stat b {
 
 .swal2-actions .swal2-confirm:hover {
   background-color: #fff;
-  color: rgb(59, 59, 59);
+  color: #4c9d22;
+  transition: 0.2s ease-out;
+}
+
+.swal2-actions .swal2-cancel {
+  height: 100%;
+  width: 50%;
+  margin: 0;
+  border-radius: 0 0 7px 0;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  background: rgb(59, 59, 59);
+  color: #fff;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  padding: 10px;
+}
+
+.swal2-actions .swal2-cancel:hover {
+  background-color: #fff;
+  color: #f25353;
   transition: 0.2s ease-out;
 }
 

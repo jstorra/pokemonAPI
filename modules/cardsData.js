@@ -1,4 +1,4 @@
-import { saveData } from "./conxMockapi.js"
+import { saveData } from "./conexMockapi.js"
 
 export const cardsEvent = async (cards) => {
   cards.forEach(async (card) => {
@@ -58,11 +58,11 @@ export const getData = async (card) => {
     no-repeat
               `,
   });
-  const btnOk = document.querySelector(".swal2-styled");
-  btnOk.style.boxShadow = "none";
-  btnOk.textContent = "SAVE";
-
+  const btnCancel = document.querySelector(".swal2-cancel")
+  btnCancel.removeAttribute("style")
   const inputs = document.querySelectorAll("#swal2-html-container input");
   const btnSave = document.querySelector(".swal2-confirm");
+  btnSave.style.boxShadow = "none";
+  btnSave.textContent = "Save";
   saveData(btnSave, inputs, namePokemon, img)
 };

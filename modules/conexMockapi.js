@@ -2,15 +2,14 @@ const mockapi = "https://6509d044f6553137159c1062.mockapi.io/pokemons";
 
 export const saveData = async (btnSave, inputs, namePokemon, imgURL) => {
   btnSave.addEventListener("click", async () => {
-    let keyStats = [...inputs].map((el) => el.dataset.stat);
-    let valueStats = [...inputs].map((el) => el.value);
-    let newStats = keyStats.reduce(
+    const keyStats = [...inputs].map((el) => el.dataset.stat);
+    const valueStats = [...inputs].map((el) => el.value);
+    const objStats = keyStats.reduce(
       (obj, key, index) => ({ ...obj, [key]: valueStats[index] }),
       {}
     );
     const res = await (await fetch(mockapi)).json();
-    let existsPokemon;
-    let id;
+    let existsPokemon, id;
     for (let el of res) {
       if (el.name === namePokemon) {
         id = el.id;
@@ -23,7 +22,7 @@ export const saveData = async (btnSave, inputs, namePokemon, imgURL) => {
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
         name: namePokemon,
-        stats: newStats,
+        stats: objStats,
         "sprite-default": imgURL,
       }),
     };
