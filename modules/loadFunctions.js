@@ -31,7 +31,7 @@ export const loadCards = async (main, api) => {
   return res.next;
 };
 
-export const loadTypes = async (sectionTypes, main) => {
+export const loadTypes = async (sectionTypes, main, footer) => {
   const res = await (await fetch("https://pokeapi.co/api/v2/type/")).json();
   let btns = res.results
     .map((type) => `<button class="btnType">${type.name}</button>`)
@@ -66,6 +66,7 @@ export const loadTypes = async (sectionTypes, main) => {
         })
       );
       main.innerHTML = cards.join("");
+      footer.style.display = "none"
       loadActions();
     });
   });
