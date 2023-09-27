@@ -6,7 +6,7 @@ const btnPrev = document.querySelector(".prevPage");
 const btnNext = document.querySelector(".nextPage");
 const hr = document.querySelector("hr");
 const footer = document.querySelector("footer");
-const api = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=9";
+const api = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=24";
 
 addEventListener("DOMContentLoaded", async () => {
   loadTypes(sectionTypes, main, footer);
