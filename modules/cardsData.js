@@ -1,4 +1,4 @@
-import { saveData } from "./conexMockapi.js"
+import { saveData, existsPokemon } from "./conexMockapi.js";
 
 export const cardsEvent = async (cards) => {
   cards.forEach(async (card) => {
@@ -11,32 +11,31 @@ export const cardsEvent = async (cards) => {
 export const getData = async (card) => {
   const namePokemon = card.id;
   const defaultImg = "assets/img/pokeBall.gif";
-  let res = await (
-    await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
-  ).json();
-  let img = res.sprites.front_default;
-  // var res, img;
-  // try {
-  //   let res1 = await (
-  //     await fetch(`https://6509d044f6553137159c1062.mockapi.io/pokemons/`)
-  //   ).json();
-  //   res1.forEach(data => {
-  //     if (data.name === namePokemon){
-  //       res = data
-  //       console.log(data)
-  //       img = data["sprite-default"]
-  //     }
-  //   })
-  // } catch (error) {
-  //   res = await (
-  //     await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
-  //   ).json();
-  //   img = res.sprites.front_default;
-  // }
+  let img, res;
+  const { id, exists, mockapi } = await existsPokemon(namePokemon);
+  if (exists) {
+    res = await (await fetch(mockapi + "/" + id)).json();
+    img = res["sprite-default"];
+    getDataMockapi(res, img, defaultImg);
+  } else {
+    res = await (
+      await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
+    ).json();
+    img = res.sprites.front_default;
+    getDataPokeapi(res, img, defaultImg);
+  }
+  const btnCancel = document.querySelector(".swal2-cancel");
+  btnCancel.removeAttribute("style");
+  const inputs = document.querySelectorAll("#swal2-html-container input");
+  const btnSave = document.querySelector(".swal2-confirm");
+  btnSave.style.boxShadow = "none";
+  btnSave.textContent = "Save";
+  saveData(btnSave, inputs, namePokemon, img);
+};
 
+const getDataPokeapi = (res, img, defaultImg) => {
   Swal.fire({
     title: `${res.name}`,
-    text: "Modal with a custom image.",
     imageUrl: `${img ? img : defaultImg}`,
     html: `
               ${res.stats
@@ -58,11 +57,27 @@ export const getData = async (card) => {
     no-repeat
               `,
   });
-  const btnCancel = document.querySelector(".swal2-cancel")
-  btnCancel.removeAttribute("style")
-  const inputs = document.querySelectorAll("#swal2-html-container input");
-  const btnSave = document.querySelector(".swal2-confirm");
-  btnSave.style.boxShadow = "none";
-  btnSave.textContent = "Save";
-  saveData(btnSave, inputs, namePokemon, img)
+};
+
+const getDataMockapi = (res, img, defaultImg) => {
+  let HTML = "";
+  for (let stat in res.stats) {
+    HTML += `<label class="stat">
+                <input type="range" value="${res.stats[stat]}" data-stat="${stat}">
+                <b>${res.stats[stat]}</b>${stat}
+            </label>`;
+  }
+
+  Swal.fire({
+    title: `${res.name}`,
+    imageUrl: `${img ? img : defaultImg}`,
+    html: `${HTML}`,
+    imageWidth: "300",
+    imageHeight: "300",
+    backdrop: `rgba(0,0,123,0.4)
+               url("assets/img/pikachu.gif")
+               center top
+    no-repeat
+              `,
+  });
 };

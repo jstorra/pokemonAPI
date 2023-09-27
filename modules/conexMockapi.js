@@ -1,5 +1,3 @@
-const mockapi = "https://6509d044f6553137159c1062.mockapi.io/pokemons";
-
 export const saveData = async (btnSave, inputs, namePokemon, imgURL) => {
   btnSave.addEventListener("click", async () => {
     const keyStats = [...inputs].map((el) => el.dataset.stat);
@@ -8,15 +6,7 @@ export const saveData = async (btnSave, inputs, namePokemon, imgURL) => {
       (obj, key, index) => ({ ...obj, [key]: valueStats[index] }),
       {}
     );
-    const res = await (await fetch(mockapi)).json();
-    let existsPokemon, id;
-    for (let el of res) {
-      if (el.name === namePokemon) {
-        id = el.id;
-        existsPokemon = true;
-        break;
-      }
-    }
+    const { id, exists, mockapi } = await existsPokemon(namePokemon);
     const config = {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -26,9 +16,23 @@ export const saveData = async (btnSave, inputs, namePokemon, imgURL) => {
         "sprite-default": imgURL,
       }),
     };
-    if (existsPokemon) {
+    if (exists) {
       config.method = "PUT";
       await fetch(mockapi + "/" + id, config);
     } else await fetch(mockapi, config);
   });
+};
+
+export const existsPokemon = async (namePokemon) => {
+  const mockapi = "https://6509d044f6553137159c1062.mockapi.io/pokemons";
+  const res = await (await fetch(mockapi)).json();
+  let exists, id;
+  for (let el of res) {
+    if (el.name === namePokemon) {
+      id = el.id;
+      exists = true;
+      break;
+    }
+  }
+  return { id, exists, mockapi };
 };
