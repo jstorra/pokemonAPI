@@ -1,4 +1,4 @@
-import { saveData, existsPokemon } from "./conexMockapi.js";
+import { saveData, existsPokemon } from "./conexJsonServer.js";
 
 export const cardsEvent = async (cards) => {
   cards.forEach(async (card) => {
@@ -12,17 +12,17 @@ export const getData = async (card) => {
   const namePokemon = card.id;
   const defaultImg = "assets/img/pokeBall.gif";
   let img, res;
-  const { id, exists, mockapi } = await existsPokemon(namePokemon);
+  const { id, exists, server } = await existsPokemon(namePokemon);
   if (exists) {
-    res = await (await fetch(mockapi + "/" + id)).json();
+    res = await (await fetch(server + "/" + id)).json();
     img = res["sprite-default"];
-    getDataMockapi(res, img, defaultImg);
+    getDataJsonServer(res, img, defaultImg);
   } else {
     res = await (
       await fetch(`https://pokeapi.co/api/v2/pokemon/${namePokemon}`)
     ).json();
     img = res.sprites.front_default;
-    getDataPokeapi(res, img, defaultImg);
+    getDataPokeApi(res, img, defaultImg);
   }
   const btnCancel = document.querySelector(".swal2-cancel");
   btnCancel.removeAttribute("style");
@@ -33,7 +33,7 @@ export const getData = async (card) => {
   saveData(btnSave, inputs, namePokemon, img);
 };
 
-const getDataPokeapi = (res, img, defaultImg) => {
+const getDataPokeApi = (res, img, defaultImg) => {
   Swal.fire({
     title: `${res.name}`,
     imageUrl: `${img ? img : defaultImg}`,
@@ -59,7 +59,7 @@ const getDataPokeapi = (res, img, defaultImg) => {
   });
 };
 
-const getDataMockapi = (res, img, defaultImg) => {
+const getDataJsonServer = (res, img, defaultImg) => {
   let HTML = "";
   for (let stat in res.stats) {
     HTML += `<label class="stat">

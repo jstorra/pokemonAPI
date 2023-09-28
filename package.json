@@ -1,0 +1,16 @@
+{
+  "name": "pokemonapi",
+  "version": "1.0.0",
+  "description": "Este es un proyecto de aplicación web de una Pokédex que te permite explorar información sobre diferentes Pokémon. La aplicación está construida utilizando HTML, CSS y JavaScript, y utiliza la PokeAPI para obtener datos de los Pokémon.",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "json-server --watch db.json --port 5010 --host 127.0.0.1"
+  },
+  "keywords": [],
+  "author": "jstorra",
+  "license": "ISC",
+  "devDependencies": {
+    "json-server": "0.17.3"
+  }
+}

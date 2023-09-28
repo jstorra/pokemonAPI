@@ -6,7 +6,7 @@ export const saveData = async (btnSave, inputs, namePokemon, imgURL) => {
       (obj, key, index) => ({ ...obj, [key]: valueStats[index] }),
       {}
     );
-    const { id, exists, mockapi } = await existsPokemon(namePokemon);
+    const { id, exists, server } = await existsPokemon(namePokemon);
     const config = {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -18,14 +18,14 @@ export const saveData = async (btnSave, inputs, namePokemon, imgURL) => {
     };
     if (exists) {
       config.method = "PUT";
-      await fetch(mockapi + "/" + id, config);
-    } else await fetch(mockapi, config);
+      await fetch(server + "/" + id, config);
+    } else await fetch(server, config);
   });
 };
 
 export const existsPokemon = async (namePokemon) => {
-  const mockapi = "https://6509d044f6553137159c1062.mockapi.io/pokemons";
-  const res = await (await fetch(mockapi)).json();
+  const server = "http://127.0.0.1:5010/pokemones";
+  const res = await (await fetch(server)).json();
   let exists, id;
   for (let el of res) {
     if (el.name === namePokemon) {
@@ -34,5 +34,5 @@ export const existsPokemon = async (namePokemon) => {
       break;
     }
   }
-  return { id, exists, mockapi };
+  return { id, exists, server };
 };
