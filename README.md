@@ -22,12 +22,15 @@ Este repositorio contiene los siguientes archivos:
 
 PokéAPI:
 
-- `https://pokeapi.co/api/v2/pokemon/` _limite 20 por defecto_.
-- `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20` _limitar manualmente, cambia los valores de **offset**: Inicio y **limit**: Final._
+- `https://pokeapi.co/api/v2/pokemon/` limite 20 por defecto.
+
+- `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20` limitar manualmente, cambia los valores de **offset**: Inicio y **limit**: Final.
 
 ## Configuración del Proyecto
 
-A continuación, se muestra cómo configurar y ejecutar el proyecto en tu entorno local:
+Primero que todo debes tener instalado **Node**, en caso de no tenerlo instalado descarga la version **LTS** de la pagina oficial https://nodejs.org/es.
+
+Una vez instalado, sigue estos pasos:
 
 1. Clona este repositorio en tu máquina local:
 
